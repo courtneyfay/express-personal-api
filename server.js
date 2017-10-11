@@ -40,14 +40,41 @@ app.get('/api', function api_index(req, res) {
   res.json({
     woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
-    documentation_url: "https://github.com/example-username/express_self_api/README.md", // CHANGE ME
-    base_url: "http://YOUR-APP-NAME.herokuapp.com", // CHANGE ME
+    documentation_url: "https://github.com/courtneyfay/express_self_api/README.md",
+    base_url: "http://infinite-sierra-66569.herokuapp.com", 
     endpoints: [
+      // Description of APIs
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
-      {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
+      
+      // Personal profile API
+      {method: "GET", path: "/api/profile", description: "Returns data about me, including: " + 
+        "name (string), github_link (string), github_profile_image (string), current_city (string), " + 
+        "shoes (array, e.g. {type: 'sneakers', brand: 'Vans', color: 'black'}"}, 
+      
+      ////////////////////
+      // CRUDDABLE DATA //
+      ////////////////////
+
+      // INDEX - return all
+      {method: "GET", path: "/api/dream-vacations", description: "Returns data about ALL my dream vacations, including: " + 
+        "_id (number), activity (string), city (string), country (string), photoUrl (string)"}, 
+      
+      // SHOW - return 1
+      {method: "GET", path: "/api/dream-vacations/:id", description: "Using the _id, returns ONE dream vacation object: " + 
+        "_id (number), activity (string), city (string), country (string), photoUrl (string)"}, 
+      
+      // CREATE - make a new 1
+      {method: "POST", path: "/api/dream-vacations", description: "Adds a new dream vacation to my list: " + 
+        "_id (number), activity (string), city (string), country (string), photoUrl (string)"}, 
+
+      // UPDATE - edit an existing 1
+      {method: "PUT", path: "/api/dream-vacations/:id", description: "Using the _id, edits parts of an existing " +
+        "dream vacation: activity (string), photoUrl (string)"},
+      
+      // DELETE - destroys 1
+      {method: "DELETE", path: "/api/dream-vacations/:id", description: "Using the _id, deletes one dream vacation"}
     ]
-  })
+  });
 });
 
 /**********
