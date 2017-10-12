@@ -111,8 +111,9 @@ app.get('/api/dream-vacations', function vacations_index(req,res) {
   db.Vacation.find({}, function(err, vacations) {
     if (err) { 
         return console.log("FIRE!" + err);
+    } else {
+      res.json(vacations);
     }
-    res.json(vacations);
   });
 });
 
@@ -122,8 +123,9 @@ app.get('/api/dream-vacations/:id', function vacations_show(req,res) {
   db.Vacation.find({_id: searchId }, function(err, vacations) {
     if (err) {
       return console.log("Error!" + err);
+    } else {
+      res.json(vacations);
     }
-    res.json(vacations);
   });
 });
 
@@ -145,17 +147,22 @@ app.post('/api/dream-vacations', function vacations_create(req,res) {
 
 // UPDATE route to edit an existing vacation by id
 app.put('/api/dream-vacations/:id', function(req,res) {
-  for (let i = 0; i < dreamVacations.length; i++) {
-    if (parseInt(req.params.id) === dreamVacations[i]._id) {
-      if (req.body.activity) {
-        dreamVacations[i].activity = req.body.activity;
-      };
-      if (req.body.photoUrl) {
-        dreamVacations[i].photoUrl = req.body.photoUrl;
-      };
-      res.json(dreamVacations[i]);
+  let searchId = req.params.id; 
+  db.Vacation.findOne({_id: searchId }, function(err, vacation) {
+    if (err) {
+      return console.log("Error!" + err);
+    } else {
+      vacation.activity = req.body.activity;
+      vacation.photoUrl = req.body.photoUrl;
+
+      vacation.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+      }); 
+      res.json(vacation);
     };
-  };
+  });
 });
 
 // DELETE route to destroy an existing vacation by id
