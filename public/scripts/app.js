@@ -31,7 +31,7 @@ $(document).ready(function(){
   });
 	*/
 
-  $booksList.on('click', '.deleteBtn', function() {
+  $vacationsList.on('click', '.deleteBtn', function() {
     console.log('clicked delete button to', '/api/books/'+$(this).attr('data-id'));
     $.ajax({
       method: 'DELETE',
