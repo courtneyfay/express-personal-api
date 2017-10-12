@@ -37,8 +37,52 @@ let myData = {
     }
   ]
 };
- 
 
+let dreamVacations = [
+  {
+    _id: 0,
+    activity: "surfing",
+    city: "Playa Tamarindo",
+    country: "Costa Rica",
+    photoUrl: "http://blog.easydrop.com/wp-content/uploads/2010/09/Marilia-Jeribu-20-05-06-61.jpg"
+  },
+  {
+    _id: 1,
+    activity: "skiing",
+    city: "Whistler-Blackcomb resort, Vancouver, British Columbia",
+    country: "Canada",
+    photoUrl: "https://img6.onthesnow.com/image/la/14/whistler_blackcomb_canada_3_140729.jpg"
+  },
+  {
+    _id: 2,
+    activity: "sightseeing before it goes underwater",
+    city: "Venice",
+    country: "Italy",
+    photoUrl: "http://cdni.condenast.co.uk/1080x720/o_r/Panoramic-view-of-Grand-Canal-from-Apartment-Wagner-at-Palazzo-Polignac-venice-italy-conde-nast-traveller-23may16-stefano-scata_1080x720.jpg"
+  },
+  {
+    _id: 3,
+    activity: "yoga retreat at Shambhala Mountain Center",
+    city: "Red Feather Lakes, CO",
+    country: "US",
+    photoUrl: "https://www.shambhalamountain.org/wp-content/uploads/2011/12/Stupa_Slideshow_1.jpg"
+  },
+  {
+    _id: 4,
+    activity: "study Irish literature",
+    city: "Cork",
+    country: "Ireland",
+    photoUrl: "https://catherineryanhoward.files.wordpress.com/2010/02/cork-coffee.jpg"
+  },
+  {
+    _id: 5,
+    activity: "sailing",
+    city: "",
+    country: "Caribbean",
+    photoUrl: "https://www.oasismarigot.com/wp-content/uploads/all-inclusive-caribbean-sailing-charters.jpg"
+  },
+];
+  
 /**********
  * ROUTES *
  **********/
@@ -106,6 +150,17 @@ app.get('/api', function api_index(req, res) {
 app.get('/api/profile', function profile_index(req,res) {
   res.json(myData);
 });
+
+/*
+// INDEX - return all
+      {method: "GET", path: "/api/dream-vacations", description: "Returns data about ALL my dream vacations, including: " + 
+        "_id (number), activity (string), city (string), country (string), photoUrl (string)"}, 
+*/
+// INDEX route for dream vacations
+app.get('/api/dream-vacations', function vacations_index(req,res) {
+  res.json(dreamVacations);
+});
+
 
 
 /**********
