@@ -167,12 +167,14 @@ app.put('/api/dream-vacations/:id', function(req,res) {
 
 // DELETE route to destroy an existing vacation by id
 app.delete('/api/dream-vacations/:id', function(req,res) {
-  for (let i = 0; i < dreamVacations.length; i++) {
-    if (parseInt(req.params.id) === dreamVacations[i]._id) {
-      res.json(dreamVacations[i]);
-      dreamVacations.splice(i,1);
-    };
-  };
+  let searchId = req.params.id; 
+  db.Vacation.remove({_id: searchId }, function(err, vacation) {
+    if (err) {
+      return console.log("Error!" + err);
+    } else {
+      res.json('successfully removed vacation');
+    }
+  });
 });
 
 /**********
