@@ -75,9 +75,9 @@ app.get('/api', function api_index(req, res) {
         "name (string), github_link (string), github_profile_image (string), current_city (string), " + 
         "shoes (array, e.g. {type: 'sneakers', brand: 'Vans', color: 'black'}"}, 
       
-      ////////////////////
-      // CRUDDABLE DATA //
-      ////////////////////
+      //////////////////////////
+      // ROUTES DOCUMENTATION //
+      //////////////////////////
 
       // INDEX - return all
       {method: "GET", path: "/api/dream-vacations", description: "Returns data about ALL my dream vacations, including: " + 
@@ -129,22 +129,18 @@ app.get('/api/dream-vacations/:id', function vacations_show(req,res) {
 
 // CREATE route to add a new dream vacation
 app.post('/api/dream-vacations', function vacations_create(req,res) {
-  
-  // grab the properties from the request and assign them to variables
-  let newId = dreamVacations.length + 1; 
-  let newActivity = req.body.activity;
-  let newCity = req.body.city;
-  let newCountry = req.body.country;
-  let newPhoto = req.body.photoUrl;
-  
-  // plug them into a new vacation object variable 
-  let newVacation = { "_id" : newId, "activity" : newActivity, "city" : newCity, "country" : newCountry, "photo" : newPhoto };
-  
-  // push the new object into the dreamVacations array
-  dreamVacations.push(newVacation);
 
-  // show the new object with json
-  res.json(newVacation);
+  let newVacation = { 
+    activity: req.body.activity, 
+    city: req.body.city,
+    country: req.body.country,
+    photoUrl: req.body.photoUrl
+  };
+
+  db.Vacation.create(newVacation, function(err, vacation) {
+    res.json(newVacation);
+  });
+  
 });
 
 // UPDATE route to edit an existing vacation by id
