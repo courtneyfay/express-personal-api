@@ -110,7 +110,7 @@ app.get('/api/profile', function profile_index(req,res) {
 app.get('/api/dream-vacations', function vacations_index(req,res) {
   db.Vacation.find({}, function(err, vacations) {
     if (err) { 
-        return console.log("FIRE!" + err)
+        return console.log("FIRE!" + err);
     }
     res.json(vacations);
   });
@@ -118,11 +118,13 @@ app.get('/api/dream-vacations', function vacations_index(req,res) {
 
 // SHOW route for an existing dream vacation by id
 app.get('/api/dream-vacations/:id', function vacations_show(req,res) {
-  for (let i = 0; i < dreamVacations.length; i++) {
-    if (parseInt(req.params.id) === dreamVacations[i]._id) {
-      res.json(dreamVacations[i]);
-    };
-  };
+  let searchId = req.params.id; 
+  db.Vacation.find({_id: searchId }, function(err, vacations) {
+    if (err) {
+      return console.log("Error!" + err);
+    }
+    res.json(vacations);
+  });
 });
 
 // CREATE route to add a new dream vacation
