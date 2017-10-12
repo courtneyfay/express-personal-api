@@ -40,42 +40,42 @@ let myData = {
 
 let dreamVacations = [
   {
-    _id: 0,
+    _id: 1,
     activity: "surfing",
     city: "Playa Tamarindo",
     country: "Costa Rica",
     photoUrl: "http://blog.easydrop.com/wp-content/uploads/2010/09/Marilia-Jeribu-20-05-06-61.jpg"
   },
   {
-    _id: 1,
+    _id: 2,
     activity: "skiing",
     city: "Whistler-Blackcomb resort, Vancouver, British Columbia",
     country: "Canada",
     photoUrl: "https://img6.onthesnow.com/image/la/14/whistler_blackcomb_canada_3_140729.jpg"
   },
   {
-    _id: 2,
+    _id: 3,
     activity: "sightseeing before it goes underwater",
     city: "Venice",
     country: "Italy",
     photoUrl: "http://cdni.condenast.co.uk/1080x720/o_r/Panoramic-view-of-Grand-Canal-from-Apartment-Wagner-at-Palazzo-Polignac-venice-italy-conde-nast-traveller-23may16-stefano-scata_1080x720.jpg"
   },
   {
-    _id: 3,
+    _id: 4,
     activity: "yoga retreat at Shambhala Mountain Center",
     city: "Red Feather Lakes, CO",
     country: "US",
     photoUrl: "https://www.shambhalamountain.org/wp-content/uploads/2011/12/Stupa_Slideshow_1.jpg"
   },
   {
-    _id: 4,
+    _id: 5,
     activity: "study Irish literature",
     city: "Cork",
     country: "Ireland",
     photoUrl: "https://catherineryanhoward.files.wordpress.com/2010/02/cork-coffee.jpg"
   },
   {
-    _id: 5,
+    _id: 6,
     activity: "sailing",
     city: "",
     country: "Caribbean",
@@ -151,17 +151,46 @@ app.get('/api/profile', function profile_index(req,res) {
   res.json(myData);
 });
 
-/*
-// INDEX - return all
-      {method: "GET", path: "/api/dream-vacations", description: "Returns data about ALL my dream vacations, including: " + 
-        "_id (number), activity (string), city (string), country (string), photoUrl (string)"}, 
-*/
 // INDEX route for dream vacations
 app.get('/api/dream-vacations', function vacations_index(req,res) {
   res.json(dreamVacations);
 });
 
+// SHOW route for 1 dream vacation that matches the ID
+app.get('/api/dream-vacations/:id', function vacations_show(req,res) {
+  for (let i = 0; i < dreamVacations.length; i++) {
+    if (parseInt(req.params.id) === dreamVacations[i]._id) {
+      res.json(dreamVacations[i]);
+    };
+  };
+});
 
+// CREATE route to add a new dream vacation
+app.post('/api/dream-vacations', function vacations_create(req,res) {
+  
+  // grab the properties from the request and assign them to variables
+  let newId = dreamVacations.length + 1; 
+  let newActivity = req.body.activity;
+  let newCity = req.body.city;
+  let newCountry = req.body.country;
+  let newPhoto = req.body.photoUrl;
+  
+  // plug them into a new vacation object variable 
+  let newVacation = { "_id" : newId, "activity" : newActivity, "city" : newCity, "country" : newCountry, "photo" : newPhoto };
+  
+  // push the new object into the dreamVacations array
+  dreamVacations.push(newVacation);
+
+  // show the new object with json
+  res.json(newVacation);
+});
+
+/*
+// UPDATE - edit an existing 1
+      {method: "PUT", path: "/api/dream-vacations/:id", description: "Using the _id, edits parts of an existing " +
+        "dream vacation: activity (string), photoUrl (string)"},
+*/
+// UPDATE route to 
 
 /**********
  * SERVER *
