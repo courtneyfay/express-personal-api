@@ -185,12 +185,22 @@ app.post('/api/dream-vacations', function vacations_create(req,res) {
   res.json(newVacation);
 });
 
-/*
-// UPDATE - edit an existing 1
-      {method: "PUT", path: "/api/dream-vacations/:id", description: "Using the _id, edits parts of an existing " +
-        "dream vacation: activity (string), photoUrl (string)"},
-*/
-// UPDATE route to 
+// UPDATE route to edit existing vacations
+app.put('/api/dream-vacations/:id', function(req,res) {
+  for (let i = 0; i < dreamVacations.length; i++) {
+    if (parseInt(req.params.id) === dreamVacations[i]._id) {
+      if (req.body.activity) {
+        dreamVacations[i].activity = req.body.activity;
+      };
+      if (req.body.photoUrl) {
+        dreamVacations[i].photoUrl = req.body.photoUrl;
+      };
+      res.json(dreamVacations[i]);
+    };
+  };
+});
+
+//
 
 /**********
  * SERVER *
