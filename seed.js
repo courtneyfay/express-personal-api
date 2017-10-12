@@ -51,7 +51,7 @@ db.Vacation.remove({}, function(err, vacations){
     // create new records based on the array dreamVacations
     db.Vacation.create(dreamVacations, function(err, vacations){
       if (err) { return console.log('err', err); }
-      console.log("created", dreamVacations.length, "books");
+      console.log("created", dreamVacations.length, "vacations");
       process.exit();
     });
   }
