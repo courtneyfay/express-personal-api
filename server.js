@@ -151,12 +151,12 @@ app.get('/api/profile', function profile_index(req,res) {
   res.json(myData);
 });
 
-// INDEX route for dream vacations
+// INDEX route for ALL dream vacations
 app.get('/api/dream-vacations', function vacations_index(req,res) {
   res.json(dreamVacations);
 });
 
-// SHOW route for 1 dream vacation that matches the ID
+// SHOW route for an existing dream vacation by id
 app.get('/api/dream-vacations/:id', function vacations_show(req,res) {
   for (let i = 0; i < dreamVacations.length; i++) {
     if (parseInt(req.params.id) === dreamVacations[i]._id) {
@@ -185,7 +185,7 @@ app.post('/api/dream-vacations', function vacations_create(req,res) {
   res.json(newVacation);
 });
 
-// UPDATE route to edit existing vacations
+// UPDATE route to edit an existing vacation by id
 app.put('/api/dream-vacations/:id', function(req,res) {
   for (let i = 0; i < dreamVacations.length; i++) {
     if (parseInt(req.params.id) === dreamVacations[i]._id) {
@@ -200,7 +200,15 @@ app.put('/api/dream-vacations/:id', function(req,res) {
   };
 });
 
-//
+// DELETE route to destroy an existing vacation by id
+app.delete('/api/dream-vacations/:id', function(req,res) {
+  for (let i = 0; i < dreamVacations.length; i++) {
+    if (parseInt(req.params.id) === dreamVacations[i]._id) {
+      res.json(dreamVacations[i]);
+      dreamVacations.splice(i,1);
+    };
+  };
+});
 
 /**********
  * SERVER *
