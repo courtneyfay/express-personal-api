@@ -29,17 +29,17 @@ $(document).ready(function(){
       error: newVacationError
     });
   });
+	*/
 
   $booksList.on('click', '.deleteBtn', function() {
     console.log('clicked delete button to', '/api/books/'+$(this).attr('data-id'));
     $.ajax({
       method: 'DELETE',
-      url: '/api/books/'+$(this).attr('data-id'),
+      url: '/api/dream-vacations/'+$(this).attr('data-id'),
       success: deleteVacationSuccess,
       error: deleteVacationError
     });
   });
-  */
 });
 
 // helper function to render all posts to view
@@ -75,7 +75,7 @@ function newVacationError() {
   console.log('new vacation error!');
 }*/
 
-/*function deleteVacationSuccess(json) {
+function deleteVacationSuccess(json) {
   var vacation = json;
   console.log(json);
   var vacationId = vacation._id;
@@ -84,7 +84,7 @@ function newVacationError() {
   for(let i = 0; i < allVacations.length; i++) {
     if(allVacations[i]._id === vacationId) {
       allVacations.splice(i, 1);
-      break;  // we found our book - no reason to keep searching (this is why we didn't use forEach)
+      break;  // we found our vacation - no reason to keep searching (this is why we didn't use forEach)
     }
   }
   render();
@@ -92,4 +92,4 @@ function newVacationError() {
 
 function deleteVacationError() {
   console.log('delete vacation error!');
-}*/
+}
