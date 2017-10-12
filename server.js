@@ -14,6 +14,31 @@ app.use(bodyParser.json());
 
 // var db = require('./models');
 
+let myData = {
+  name: "Courtney Fay",
+  github_link: "https://github.com/courtneyfay",
+  github_profile_image: "https://avatars3.githubusercontent.com/u/11844400?v=4&s=460",
+  current_city: "Denver",
+  shoes: [
+    {
+      type: 'sneakers', 
+      brand: 'Vans', 
+      color: 'black'
+    },
+    {
+      type: 'pointy-toe flats', 
+      brand: 'Aldo', 
+      color: 'black'
+    },
+    {
+      type: 'boots', 
+      brand: 'Uggs', 
+      color: 'black'
+    }
+  ]
+};
+ 
+
 /**********
  * ROUTES *
  **********/
@@ -30,11 +55,11 @@ app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
 /*
  * JSON API Endpoints
  */
 
+// API documentation
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
@@ -76,6 +101,12 @@ app.get('/api', function api_index(req, res) {
     ]
   });
 });
+
+// INDEX route for personal profile
+app.get('/api/profile', function profile_index(req,res) {
+  res.json(myData);
+});
+
 
 /**********
  * SERVER *
